@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GuessTheNumberGame.Solution
+namespace CodingActivity_TheNumberGuessingGame.Solution
 {
     class Program
     {

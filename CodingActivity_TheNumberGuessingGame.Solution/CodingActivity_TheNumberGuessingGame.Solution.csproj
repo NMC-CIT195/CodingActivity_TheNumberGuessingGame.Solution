@@ -7,8 +7,8 @@
     <ProjectGuid>{23850513-AC61-4DDB-ABB6-27F28CB48A2E}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CodingActivity_TheNumberGuessingGame_Solution</RootNamespace>
-    <AssemblyName>CodingActivity_TheNumberGuessingGame_Solution</AssemblyName>
+    <RootNamespace>CodingActivity_TheNumberGuessingGame.Solution</RootNamespace>
+    <AssemblyName>CodingActivity_TheNumberGuessingGame.Solution</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>
@@ -37,7 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\CodingActivity_TheNumberGuessingGame_Solution.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\CodingActivity_TheNumberGuessingGame.Solution.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
