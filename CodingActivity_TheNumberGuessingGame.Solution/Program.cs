@@ -115,9 +115,8 @@ namespace CodingActivity_TheNumberGuessingGame.Solution
 
             //
             // Increment round number
-            // (Instructor Note: "roundNumber++:" could also be used to increment the round number.
             //
-            roundNumber = roundNumber + 1;
+            roundNumber = roundNumber++;
 
             //
             // Get a random number
@@ -143,6 +142,9 @@ namespace CodingActivity_TheNumberGuessingGame.Solution
 
             playerKeyResponse = Console.ReadKey();
 
+            //
+            // Note: Console window closes immediately without displaying the closing screen.
+            //
             if (playerKeyResponse.Key == ConsoleKey.Escape)
             {
                 Environment.Exit(0);
@@ -166,6 +168,84 @@ namespace CodingActivity_TheNumberGuessingGame.Solution
             Console.WriteLine("Press the any key to continue.");
 
             Console.ReadLine();
+        }
+
+        /// <summary>
+        /// Prompt for and return the player's guess
+        /// </summary>
+        /// <returns></returns>
+        private static int DisplayGetPlayersGuessScreen()
+        {
+            string playerResponse;
+            int playersGuess;
+            bool validResponse = false;
+            Console.Clear();
+
+            //
+            // Validate player's guess
+            //
+            while (!validResponse)
+            {
+                //
+                // Clear screen and set header
+                //
+                DisplayReset();
+
+                Console.Write("Enter your guess as a number between 1 and {0}: ", MAX_NUMBER_TO_GUESS);
+                playerResponse = Console.ReadLine();
+
+                //
+                // Test if player's response is an integer
+                // Note: The player does have the option to quit the game via the DisplayContinueQuitPrompt method
+                //
+                if (int.TryParse(playerResponse, out playersGuess))
+                {
+                    //
+                    // Test if the player's response is within the desired range
+                    //
+                    if (playersGuess >= 1 && playersGuess <= MAX_NUMBER_TO_GUESS)
+                    {
+                        validResponse = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("It appears that you did not enter a number within the proper range.");
+                        Console.WriteLine("Please try again.");
+
+                        DisplayContinueQuitPrompt();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("It appears that you did not enter a valid integer.");
+                    Console.WriteLine("Please try again.");
+
+                    DisplayContinueQuitPrompt();
+                }
+            }
+            return Program.playersGuess;
+        }
+
+        /// <summary>
+        /// Evaluate the player's guess and provide the player feedback
+        /// </summary>
+        private static void DisplayPlayerGuessFeedback()
+        {
+            if (playersGuess == numberToGuess)
+            {
+                numberGuessedCorrectly = true;
+                Console.WriteLine("The number you guessed, " + playersGuess + ", is correct!.");
+            }
+            else if (playersGuess > numberToGuess)
+            {
+                Console.WriteLine("The number you guessed, " + playersGuess + ", is too high.");
+            }
+            else
+            {
+                Console.WriteLine("The number you guessed, " + playersGuess + ", is too low.");
+            }
         }
 
         /// <summary>
@@ -211,26 +291,6 @@ namespace CodingActivity_TheNumberGuessingGame.Solution
         }
 
         /// <summary>
-        /// Evaluate the player's guess and provide the player feedback
-        /// </summary>
-        private static void DisplayPlayerGuessFeedback()
-        {
-            if (playersGuess == numberToGuess)
-            {
-                numberGuessedCorrectly = true;
-                Console.WriteLine("The number you guessed, " + playersGuess + ", is correct!.");
-            }
-            else if (playersGuess > numberToGuess)
-            {
-                Console.WriteLine("The number you guessed, " + playersGuess + ", is too high.");
-            }
-            else
-            {
-                Console.WriteLine("The number you guessed, " + playersGuess + ", is too low.");
-            }
-        }
-
-        /// <summary>
         /// Display the player's current stats and prompt to Continue/Quit
         /// </summary>
         private static void DisplayPlayerStats()
@@ -248,19 +308,27 @@ namespace CodingActivity_TheNumberGuessingGame.Solution
             double winRate = ((double)numberOfWins / roundNumber) * 100;
             int percentageOfWins = (int)Math.Round(winRate);
 
+            //
+            // Display the players current stats
+            //
             DisplayReset();
-
             Console.WriteLine("You current stats:\n");
             Console.WriteLine("Number of Rounds Played : " + roundNumber);
             Console.WriteLine("Number of Wins          : " + numberOfWins);
             Console.WriteLine("Number of Losses        : " + numberOfLosses);
             Console.WriteLine("Percentage of Wins      : " + percentageOfWins + "%");
             Console.WriteLine("\n\n");
+
+            //
+            // Prompt to continue or quit
+            //
             Console.WriteLine("Press the (Enter) key to play another round.");
             Console.WriteLine("Press the (Esc) key to Quit.");
-
             playerKeyResponse = Console.ReadKey();
 
+            //
+            // set flag if player wants to quit
+            //
             if (playerKeyResponse.Key == ConsoleKey.Escape)
             {
                 playingGame = false;
@@ -290,6 +358,9 @@ namespace CodingActivity_TheNumberGuessingGame.Solution
         /// </summary>
         private static void DisplayClosingScreen()
         {
+            //
+            // Clear screen and set header
+            //
             DisplayReset();
 
             Console.WriteLine("Thank you for playing our Number Guessing Game.\n");
@@ -299,51 +370,6 @@ namespace CodingActivity_TheNumberGuessingGame.Solution
             Console.ReadLine();
 
             Environment.Exit(0);
-        }
-
-        /// <summary>
-        /// Prompt for and return the player's guess
-        /// </summary>
-        /// <returns></returns>
-        private static int DisplayGetPlayersGuessScreen()
-        {
-            string playerResponse;
-            int playersGuess;
-            bool validResponse = false;
-            Console.Clear();
-
-            while (!validResponse)
-            {
-                DisplayReset();
-
-                Console.Write("Enter your guess as a number between 1 and {0}: ", MAX_NUMBER_TO_GUESS);
-                playerResponse = Console.ReadLine();
-
-                if (int.TryParse(playerResponse, out playersGuess))
-                {
-                    if (playersGuess >= 1 && playersGuess <= MAX_NUMBER_TO_GUESS)
-                    {
-                        validResponse = true;
-                    }
-                    else
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine("It appears that you did not enter a number within the proper range.");
-                        Console.WriteLine("Please try again.");
-
-                        DisplayContinuePrompt();
-                    }
-                }
-                else
-                {
-                    Console.WriteLine();
-                    Console.WriteLine("It appears that you did not enter a valid integer.");
-                    Console.WriteLine("Please try again.");
-
-                    DisplayContinuePrompt();
-                }
-            }
-            return Program.playersGuess;
         }
 
         /// <summary>
@@ -381,9 +407,9 @@ namespace CodingActivity_TheNumberGuessingGame.Solution
         }
 
         /// <summary>
-        /// display the Continue/Exit prompt
+        /// display the Continue/Quit prompt
         /// </summary>
-        public static void DisplayContinuePrompt()
+        public static void DisplayContinueQuitPrompt()
         {
             Console.CursorVisible = false;
 
@@ -391,8 +417,11 @@ namespace CodingActivity_TheNumberGuessingGame.Solution
 
             Console.WriteLine("Press any key to continue or press the ESC key to quit.");
             Console.WriteLine();
-
             ConsoleKeyInfo response = Console.ReadKey();
+
+            //
+            // Set flag if player chooses to quit
+            //
             if (response.Key == ConsoleKey.Escape)
             {
                 playingGame = false;
