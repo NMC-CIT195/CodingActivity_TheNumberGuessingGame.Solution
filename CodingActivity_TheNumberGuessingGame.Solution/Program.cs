@@ -104,6 +104,7 @@ namespace CodingActivity_TheNumberGuessingGame.Solution
             playingRound = true;
             numberGuessedCorrectly = false;
             numberOfCurrentPlayerGuess = 1;
+            roundNumber++;
 
             //
             // Initialize the array of player guesses with zeros
@@ -177,7 +178,6 @@ namespace CodingActivity_TheNumberGuessingGame.Solution
         private static int DisplayGetPlayersGuessScreen()
         {
             string playerResponse;
-            int playersGuess;
             bool validResponse = false;
             Console.Clear();
 
@@ -258,7 +258,7 @@ namespace CodingActivity_TheNumberGuessingGame.Solution
             // 
             if (numberGuessedCorrectly)
             {
-                numberOfWins = numberOfWins + 1;
+                numberOfWins++;
                 playingRound = false;
 
                 Console.WriteLine("Press the (Enter) key to see your current stats.");
@@ -424,7 +424,7 @@ namespace CodingActivity_TheNumberGuessingGame.Solution
             //
             if (response.Key == ConsoleKey.Escape)
             {
-                playingGame = false;
+                DisplayClosingScreen();
             }
 
             Console.CursorVisible = true;
